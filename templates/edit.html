@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Invoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h1>Smart Invoice</h1>
+        <div class="nav">
+            <a href="/">Upload</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <div class="content">
+
+            <div class="header">
+                <h2>Edit Invoice</h2>
+                <p>Update invoice information</p>
+            </div>
+
+            <div class="invoice">
+
+                <form method="POST" class="edit-form">
+
+                    <!-- AMOUNT USD -->
+                    <div class="form-group">
+                        <label class="form-label">Amount (USD)</label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            name="amount_usd"
+                            id="amount_usd"
+                            class="form-input"
+                            value="{{ invoice.total_amount if invoice.currency == 'USD' else '' }}"
+                        >
+                    </div>
+
+                    <!-- AMOUNT IQD -->
+                    <div class="form-group">
+                        <label class="form-label">Amount (IQD)</label>
+                        <input
+                            type="number"
+                            step="1"
+                            name="amount_iqd"
+                            id="amount_iqd"
+                            class="form-input"
+                            value="{{ invoice.total_amount if invoice.currency == 'IQD' else '' }}"
+                        >
+                        <!-- warning injected here -->
+                    </div>
+
+                    <!-- CATEGORY -->
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-input">
+                            <option value="General" {{ 'selected' if invoice.category=='General' }}>General</option>
+                            <option value="Electricity" {{ 'selected' if invoice.category=='Electricity' }}>Electricity</option>
+                            <option value="Internet" {{ 'selected' if invoice.category=='Internet' }}>Internet</option>
+                            <option value="Water" {{ 'selected' if invoice.category=='Water' }}>Water</option>
+                            <option value="Shopping" {{ 'selected' if invoice.category=='Shopping' }}>Shopping</option>
+                        </select>
+                    </div>
+
+                    <!-- STATUS -->
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-input">
+                            <option value="Processed" {{ 'selected' if invoice.status=='Processed' }}>Processed</option>
+                            <option value="Pending" {{ 'selected' if invoice.status=='Pending' }}>Pending</option>
+                        </select>
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div class="form-actions">
+                        <button class="btn">Save Changes</button>
+                        <a href="/dashboard" class="btn secondary">Cancel</a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+<!-- ✅ UX LOGIC -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const usdInput = document.getElementById("amount_usd");
+    const iqdInput = document.getElementById("amount_iqd");
+
+    const lang = "{{ lang }}";
+
+    const warning = document.createElement("div");
+    warning.style.color = "#f87171";
+    warning.style.marginTop = "8px";
+    warning.style.fontSize = "14px";
+    warning.style.display = "none";
+
+    warning.innerText = (lang === "ar")
+        ? "يرجى إدخال عملة واحدة فقط"
+        : "Please enter only one currency";
+
+    iqdInput.parentElement.appendChild(warning);
+
+    function handleInput(active, disabled) {
+        if (active.value.trim() !== "") {
+            disabled.disabled = true;
+            warning.style.display = "none";
+        } else {
+            disabled.disabled = false;
+        }
+
+        if (usdInput.value && iqdInput.value) {
+            warning.style.display = "block";
+        }
+    }
+
+    usdInput.addEventListener("input", () => handleInput(usdInput, iqdInput));
+    iqdInput.addEventListener("input", () => handleInput(iqdInput, usdInput));
+});
+</script>
+
+</body>
+</html>

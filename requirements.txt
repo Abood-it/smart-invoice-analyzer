@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+pytesseract
+Pillow
+pdf2image
+pandas
+openpyxl

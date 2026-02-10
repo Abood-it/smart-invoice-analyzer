@@ -1,0 +1,650 @@
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+    --bg-main: #0b1220;
+    --bg-sidebar: #020617;
+    --bg-card: rgba(255, 255, 255, 0.08);
+    --primary: #6366f1;
+    --secondary: #22d3ee;
+    --accent: #a855f7;
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+    --glass: blur(18px);
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+    width: 220px;
+    background: linear-gradient(180deg, #020617, #020617);
+    padding: 28px 18px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.sidebar h1 {
+    color: var(--secondary);
+    font-size: 20px;
+    margin-bottom: 36px;
+}
+
+.nav a {
+    display: block;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.25s ease;
+}
+
+.nav a:hover {
+    background: var(--bg-card);
+    transform: translateX(6px);
+}
+
+.nav a.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+/* =========================
+MAIN CONTENT
+========================= */
+.main {
+    flex: 1;
+    padding: 48px 56px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+HEADER
+========================= */
+.header {
+    margin-bottom: 48px;
+}
+
+.header h2 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.header p {
+    margin-top: 8px;
+    color: var(--text-muted);
+    max-width: 520px;
+}
+
+/* =========================
+STATS
+========================= */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    backdrop-filter: var(--glass);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+}
+
+.stat-card h3 {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.stat-card h1 {
+    margin-top: 10px;
+    font-size: 36px;
+    background: linear-gradient(90deg, var(--secondary), var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+SEARCH & ACTIONS
+========================= */
+.search-box {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.search-box input,
+.search-box select {
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+    padding: 14px 26px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 10px 30px rgba(99,102,241,0.35);
+    transition: all 0.25s ease;
+}
+
+.btn.secondary {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   INVOICE CARDS
+========================= */
+.invoice {
+    background: var(--bg-card);
+    backdrop-filter: var(--glass);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+    border-left: 6px solid var(--primary);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+}
+
+.invoice h3 {
+    font-size: 18px;
+}
+
+.invoice small {
+    color: var(--text-muted);
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+}
+
+/* =========================
+   DETAILS
+========================= */
+details summary {
+    margin-top: 14px;
+    cursor: pointer;
+    color: var(--secondary);
+}
+
+pre {
+    margin-top: 12px;
+    background: #020617;
+    padding: 16px;
+    border-radius: 12px;
+    overflow-x: auto;
+}
+
+/* =========================
+   UPLOAD PAGE
+========================= */
+.upload-box {
+    max-width: 520px;
+    margin: 0 auto;
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.12),
+        rgba(255,255,255,0.04)
+    );
+    backdrop-filter: var(--glass);
+    padding: 36px;
+    border-radius: 22px;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.upload-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.upload-box input[type="file"] {
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+/* ===== UPLOAD PAGE POLISHING ===== */
+
+.upload-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+}
+
+.upload-header {
+    margin-bottom: 32px;
+}
+
+.upload-header h2 {
+    font-size: 34px;
+}
+
+.upload-header p {
+    line-height: 1.6;
+}
+
+/* Upload card content */
+.upload-icon {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.upload-label {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.upload-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: -6px;
+}
+
+.upload-btn {
+    margin-top: 10px;
+    align-self: stretch;
+    text-align: center;
+}
+/* ===== CUSTOM FILE INPUT (PRO UI) ===== */
+
+.file-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.file-input input[type="file"] {
+    display: none;
+}
+
+.file-btn {
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border: 1px dashed rgba(255,255,255,0.25);
+    transition: all 0.25s ease;
+}
+
+.file-btn:hover {
+    background: rgba(255,255,255,0.18);
+    border-color: var(--secondary);
+}
+
+.file-name {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    word-break: break-all;
+}
+/* ===== FIX SELECT / DROPDOWN DARK MODE ===== */
+
+.search-box select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: rgba(255,255,255,0.12);
+    color: #ffffff;
+
+    padding: 14px 44px 14px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.18);
+
+    background-image: url("data:image/svg+xml,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+}
+
+/* =========================
+   FILTER BAR
+========================= */
+.filter-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+/* DATE INPUT */
+.date-input {
+    background: linear-gradient(135deg, #0f172a, #020617);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #ffffff;
+
+    padding: 12px 14px;
+    border-radius: 14px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    min-width: 160px;
+    transition: all 0.25s ease;
+}
+
+.date-input:hover {
+    border-color: #6366f1;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 2px rgba(34,211,238,0.25);
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+/* =========================
+INVOICE ACTIONS
+========================= */
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+/* BADGES */
+.badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+/* TOTAL */
+.total {
+    margin-top: 32px;
+}
+
+/* DANGER BUTTON */
+.btn.danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 10px 25px rgba(239,68,68,0.35);
+}
+/* =========================
+   FILTER BAR
+========================= */
+.filter-bar {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+/* DATE GROUP */
+.date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* LABEL (From / To) */
+.date-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    padding-left: 6px;
+    letter-spacing: 0.4px;
+}
+
+/* DATE INPUT */
+.date-input {
+    background: linear-gradient(135deg, #0f172a, #020617);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #ffffff;
+
+    padding: 12px 14px;
+    border-radius: 14px;
+
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 160px;
+
+    transition: all 0.25s ease;
+}
+
+.date-input:hover {
+    border-color: #6366f1;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 2px rgba(34,211,238,0.25);
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.85;
+    cursor: pointer;
+}
+/* =========================
+   EDIT FORM
+========================= */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 420px;
+}
+
+/* FORM GROUP */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* LABEL */
+.form-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    padding-left: 6px;
+    letter-spacing: 0.4px;
+}
+
+/* INPUT & SELECT */
+.form-input {
+    background: linear-gradient(135deg, #0f172a, #020617);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #ffffff;
+
+    padding: 12px 14px;
+    border-radius: 14px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+/* REMOVE DEFAULT SELECT STYLE */
+.form-input select,
+.form-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* HOVER & FOCUS */
+.form-input:hover {
+    border-color: #6366f1;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 2px rgba(34,211,238,0.25);
+}
+
+/* SELECT DROPDOWN OPTIONS */
+.form-input option {
+    background-color: #020617;
+    color: #ffffff;
+}
+
+/* ACTION BUTTONS */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+.rtl {
+    direction: rtl;
+    text-align: right;
+    unicode-bidi: plaintext;
+    font-family: "Tahoma", "Arial", sans-serif;
+}
+.ocr-text {
+    white-space: pre-wrap;
+    line-height: 1.9;
+    font-family: monospace;
+    color: #e5e7eb;
+    max-height: 45vh;
+    overflow-y: auto;
+}
+/* =========================
+   FIX SIDEBAR (ADD ONLY)
+========================= */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+/* =========================
+   FIX MAIN OFFSET (ADD ONLY)
+========================= */
+.main {
+    margin-left: 220px; /* نفس عرض sidebar */
+}
+
+/* =========================
+FIX TOTAL BAR (ADD ONLY)
+========================= */
+.totals-bar {
+    position: fixed;
+    top: 90px;           /* تحت عنوان Smart Invoice */
+    left: 220px;         /* بعد الـ sidebar */
+    right: 0;
+    z-index: 900;
+}
+
+/* منع تداخل المحتوى مع شريط المجموع */
+.content {
+    padding-top: 80px;
+}
+/* =========================
+   SIDEBAR TOTALS (FIXED BOTTOM)
+========================= */
+.sidebar-totals {
+    position: absolute;
+    bottom: 24px;
+    left: 18px;
+    right: 18px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(99,102,241,0.15),
+        rgba(168,85,247,0.15)
+    );
+
+    border-radius: 16px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.sidebar-totals .total-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.sidebar-totals .total-item span {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.sidebar-totals .total-item strong {
+    font-size: 15px;
+    font-weight: 600;
+}

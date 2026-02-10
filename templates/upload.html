@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Invoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Drag & Drop Enhancement */
+        .upload-box.dragover {
+            border: 2px dashed #22c55e;
+            background: rgba(34, 197, 94, 0.08);
+        }
+
+        .drop-hint {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <h1>Smart Invoice</h1>
+        <div class="nav">
+            <a class="active" href="/">Upload</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <div class="content upload-page">
+
+            <div class="header upload-header">
+                <h2>Upload Invoice</h2>
+                <p>
+                    Upload a PDF or image invoice.<br>
+                    The system will automatically analyze it using OCR.
+                    
+                </p>
+            </div>
+
+            <div class="upload-section">
+                <div class="upload-box" id="dropZone">
+
+                    <div class="upload-icon">📄</div>
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        <!-- FILE INPUT -->
+                        <input
+                            type="file"
+                            name="invoice"
+                            id="fileInput"
+                            hidden
+                            required
+                        >
+
+                        <button type="button" class="file-btn" id="chooseBtn">
+                            Choose Invoice File
+                        </button>
+
+                        <div id="file-name" class="file-name">
+                            No file selected
+                        </div>
+
+                        <div class="drop-hint">
+                            Or drag & drop the file here
+                        </div>
+
+                        <small class="upload-hint">
+                            Supported formats: PDF, JPG, PNG
+                        </small>
+
+                        <button class="btn upload-btn">
+                            Upload & Analyze
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ✅ Drag & Drop Logic -->
+<script>
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("file-name");
+const chooseBtn = document.getElementById("chooseBtn");
+
+// open file dialog
+chooseBtn.addEventListener("click", () => fileInput.click());
+
+// file selected normally
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length) {
+        fileName.innerText = fileInput.files[0].name;
+    }
+});
+
+// drag over
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+});
+
+// drag leave
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+});
+
+// drop
+dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+
+    if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        fileName.innerText = e.dataTransfer.files[0].name;
+    }
+});
+</script>
+
+</body>
+</html>

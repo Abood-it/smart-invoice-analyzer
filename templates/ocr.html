@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OCR Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .ocr-box {
+            background: #0f172a;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 12px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-family: monospace;
+            max-height: 45vh;
+            overflow-y: auto;
+            margin-bottom: 25px;
+        }
+
+        .info-box {
+            background: #020617;
+            border: 1px solid #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .info-box h3 {
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-box li {
+            margin-bottom: 10px;
+            color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h1>Smart Invoice</h1>
+        <div class="nav">
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <div class="content">
+
+            <h2>OCR Result</h2>
+            <p><strong>File:</strong> {{ invoice.filename }}</p>
+
+            <!-- 🔹 OCR TEXT (ORIGINAL) -->
+            <!-- 🔹 OCR TEXT (SAME DESIGN AS BELOW) -->
+            <div class="info-box">
+            {% if lang == "ar" %}
+            <h3>📝 نص الفاتورة (OCR)</h3>
+            <div class="ocr-text" dir="rtl">
+            {{ ocr_text if ocr_text else "لا يوجد نص مستخرج." }}
+            </div>
+            {% else %}
+            <h3>📝 Invoice Text (OCR)</h3>
+            <div class="ocr-text">
+            {{ ocr_text if ocr_text else "No OCR text found." }}
+            </div>
+            {% endif %}
+            </div>
+
+            <!-- 🔹 EDITED DATA -->
+            <div class="info-box">
+            {% if lang == "ar" %}
+            <h3>📊 بيانات الفاتورة الحالية</h3>
+            <ul dir="rtl">
+            <li>💰 المبلغ: {{ invoice.total_amount }} {{ "دينار" if invoice.currency=="IQD" else "دولار" }}</li>
+            <li>📁 التصنيف: {{ invoice.category }}</li>
+            <li>📌 الحالة: {{ "قيد الانتظار" if invoice.status=="Pending" else "تمت المعالجة" }}</li>
+            <li>📅 تاريخ الفاتورة: {{ invoice.invoice_date }}</li>
+            </ul>
+            {% else %}
+            <h3>📊 Current Invoice Data</h3>
+            <ul>
+            <li>💰 Amount: {{ invoice.total_amount }} {{ invoice.currency }}</li>
+            <li>📁 Category: {{ invoice.category }}</li>
+            <li>📌 Status: {{ invoice.status }}</li>
+            <li>📅 Invoice Date: {{ invoice.invoice_date }}</li>
+            </ul>
+            {% endif %}
+            </div>
+
+            <br>
+            <a href="/dashboard" class="btn secondary">Back</a>
+
+        </div>
+    </main>
+
+</div>
+
+</body>
+</html>

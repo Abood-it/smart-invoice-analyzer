@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+    <h1>Smart Invoice</h1>
+
+    <div class="nav">
+        <a href="/">Upload</a>
+        <a class="active" href="/dashboard">Dashboard</a>
+    </div>
+
+    <!-- ✅ TOTALS INSIDE SIDEBAR -->
+    <div class="sidebar-totals">
+        <div class="total-item">
+            💵 <span>Total (USD)</span>
+            <strong>{{ "%.2f"|format(total_usd) }}</strong>
+        </div>
+
+        <div class="total-item">
+            🇮🇶 <span>Total (IQD)</span>
+            <strong>{{ "{:,.0f}".format(total_iqd) }}</strong>
+        </div>
+    </div>
+</aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        
+        <div class="content">
+
+            <!-- HEADER -->
+            <div class="header">
+                <h2>Invoices Dashboard</h2>
+                <p>Smart financial analysis & invoice management</p>
+            </div>
+
+            <!-- FILTER + EXPORT PERIOD -->
+            <form method="GET" class="filter-bar" action="/export-excel">
+
+                <div class="date-group">
+                    <label class="date-label">From</label>
+                    <input type="date" name="start" class="date-input">
+                </div>
+
+                <div class="date-group">
+                    <label class="date-label">To</label>
+                    <input type="date" name="end" class="date-input">
+                </div>
+
+                <button type="submit" class="btn">
+                    Download Excel
+                </button>
+
+            </form>
+
+            <!-- INVOICES -->
+            {% for i in invoices %}
+            <div class="invoice">
+
+                <h3>{{ i.filename }}</h3>
+                <small>{{ i.upload_date }}</small>
+
+                <p class="invoice-meta">
+                💵 USD:
+                {% if i.currency == "USD" %}
+                    {{ "%.2f"|format(i.total_amount) }}
+                {% else %}
+                    0.00
+                {% endif %}
+                <br>
+                🇮🇶 IQD:
+                {% if i.currency == "IQD" %}
+                    {{ "{:,.0f}".format(i.total_amount) }}
+                {% else %}
+                    0
+                {% endif %}
+                <br>    
+                📅 {{ i.invoice_date }}
+                </p>
+
+                <div class="badges">
+                    <span class="badge">{{ i.category }}</span>
+                    <span class="badge">{{ i.status }}</span>
+                </div>
+
+                <div class="actions">
+
+                    <a class="btn secondary" href="/preview/{{ i.id }}" target="_blank">
+                        Preview
+                    </a>
+
+                    <a class="btn secondary" href="/ocr/{{ i.id }}">
+                        View OCR
+                    </a>
+
+                    <a class="btn" href="/export-excel/{{ i.id }}">
+                        Download Excel
+                    </a>
+
+                    <a class="btn secondary" href="/edit/{{ i.id }}">
+                        Edit
+                    </a>
+
+                    <form method="POST"
+                        action="/delete/{{ i.id }}"
+                        onsubmit="return confirm('Are you sure you want to delete this invoice?')">
+                        <button class="btn danger">
+                            Delete
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </main>
+
+</div>
+
+</body>
+</html>
